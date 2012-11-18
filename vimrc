@@ -38,13 +38,14 @@ filetype plugin indent on       " load file type plugins + indentation
 set laststatus=2                " Always show the statusline
 set hidden                      " Maintain scroll position (don't close buffer)
 runtime macros/matchit.vim      " Needed for Ruby block selection support: https://github.com/nelstrom/vim-textobj-rubyblock
-    
+
 "" Whitespace
 set nowrap                      " don't wrap lines
 set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
 set expandtab                   " use spaces, not tabs (optional)
 set backspace=indent,eol,start  " backspace through everything in insert mode
-set list                        " show whitespaces
+set listchars=trail:·
+set list
 
 "" Searching
 set hlsearch                    " highlight matches
@@ -86,6 +87,7 @@ set wildmode=list:longest         " Complete files like a shell.
 set wildignore+=vendor,log,tmp,*.swp,.git,gems,.bundle,Gemfile.lock,.gem,.rvmrc,.gitignore,.DS_Store,data
 
 "" Misc shortcuts
+nnoremap <leader><space> :nohl<cr>      " un-highlight search results
 map <F5> :call system('pbcopy', @%)<cr> " Copy file path to clipboard
 map <leader>p :CtrlP<cr>
 map <leader>b :CtrlPBuffer<cr>
