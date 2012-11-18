@@ -17,6 +17,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/YankRing.vim'
 
 "" vim-snipmate  dependencies
 Bundle "MarcWeber/vim-addon-mw-utils"
