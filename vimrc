@@ -18,6 +18,13 @@ Bundle 'tomtom/tcomment_vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 
+"" vim-snipmate  dependencies
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "honza/snipmate-snippets"
+
+Bundle "garbas/vim-snipmate"
+
 
 filetype plugin indent on     " required!
 """ Vundle config end
@@ -46,7 +53,7 @@ set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
 
 "" Color scheme
-let g:solarized_termcolors = &t_Co
+"let g:solarized_termcolors = &t_Co
 let g:solarized_termtrans = 1
 let g:solarized_termcolors=256
 let g:solarized_visibility = "high"
