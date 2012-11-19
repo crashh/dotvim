@@ -40,13 +40,17 @@ set laststatus=2                " Always show the statusline
 set hidden                      " Maintain scroll position (don't close buffer)
 runtime macros/matchit.vim      " Needed for Ruby block selection support: https://github.com/nelstrom/vim-textobj-rubyblock
 
+" Visual
+set showmatch  " Show matching brackets.
+set mat=5  " Bracket blinking.
+set list
+
 "" Whitespace
 set nowrap                      " don't wrap lines
 set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
 set expandtab                   " use spaces, not tabs (optional)
 set backspace=indent,eol,start  " backspace through everything in insert mode
 set listchars=trail:·
-set list
 
 "" Searching
 set hlsearch                    " highlight matches
@@ -64,6 +68,7 @@ set background=light
 colorscheme solarized
 
 "" Line numbering, cursor
+set relativenumber                " Show relative line numbers
 set ruler                         " Show cursor position.
 set scrolloff=3                   " Show 3 lines of context around the cursor.
 
