@@ -1,10 +1,22 @@
 """ Vundle config start
 set nocompatible               " be iMproved
 filetype off                   " required!
+
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+  echo "Installing Vundle.."
+  echo ""
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+  let iCanHazVundle=0
+endif
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
-
+"Add your bundles here
+Bundle 'Syntastic' "uber awesome syntax and errors highlighter
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'altercation/vim-colors-solarized'
@@ -23,9 +35,15 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "honza/snipmate-snippets"
-
 Bundle "garbas/vim-snipmate"
 
+"...All your other bundles...
+if iCanHazVundle == 0
+  echo "Installing Bundles, please ignore key map error messages"
+  echo ""
+  :BundleInstall
+endif
+" Setting up Vundle - the vim plugin bundler end
 
 filetype plugin indent on     " required!
 """ Vundle config end
