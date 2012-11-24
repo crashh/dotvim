@@ -59,13 +59,7 @@ set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
 
 "" Color scheme
-"let g:solarized_termcolors = &t_Co
-let g:solarized_termtrans = 1
-let g:solarized_termcolors=256
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
-set background=light
-colorscheme solarized
+colorscheme railscasts
 
 "" Line numbering, cursor
 set relativenumber                " Show relative line numbers
