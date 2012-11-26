@@ -16,7 +16,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 "Add your bundles here
-Bundle 'Syntastic' "uber awesome syntax and errors highlighter
+Bundle 'Syntastic'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'altercation/vim-colors-solarized'
