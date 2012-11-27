@@ -109,3 +109,13 @@ nnoremap <leader><space> :nohl<cr>      " un-highlight search results
 map <F5> :call system('pbcopy', @%)<cr> " Copy file path to clipboard
 map <leader>p :CtrlP<cr>
 map <leader>b :CtrlPBuffer<cr>
+
+"" Disable arrow keys
+inoremap  <Up>     <NOP>
+inoremap  <Down>   <NOP>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
