@@ -30,6 +30,7 @@ Bundle 'tomtom/tcomment_vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/YankRing.vim'
+Bundle 'wikitopian/hardmode'
 
 "" vim-snipmate  dependencies
 Bundle "MarcWeber/vim-addon-mw-utils"
