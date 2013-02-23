@@ -111,3 +111,8 @@ map <F5> :call system('pbcopy', @%)<cr> " Copy file path to clipboard
 map <leader>p :CtrlP<cr>
 map <leader>b :CtrlPBuffer<cr>
 
+"" ctrl + hjkl
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
