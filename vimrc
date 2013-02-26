@@ -87,6 +87,7 @@ set scrolloff=3                   " Show 3 lines of context around the cursor.
 
 "" Yankring
 let g:yankring_history_file = '.yankring_history'
+map <leader>y :YRShow<cr>
 
 "" NERDTree
 function! ShowFileInNERDTree()
