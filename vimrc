@@ -82,7 +82,7 @@ set smartcase                   " ... unless they contain at least one capital l
 colorscheme railscasts
 
 "" Line numbering, cursor
-set relativenumber                " Show relative line numbers
+set number                        " Show line numbers
 set ruler                         " Show cursor position.
 set scrolloff=3                   " Show 3 lines of context around the cursor.
 
