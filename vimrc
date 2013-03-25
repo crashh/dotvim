@@ -60,6 +60,8 @@ set laststatus=2                " Always show the statusline
 set hidden                      " Maintain scroll position (don't close buffer)
 runtime macros/matchit.vim      " Needed for Ruby block selection support: https://github.com/nelstrom/vim-textobj-rubyblock
 
+set ofu=syntaxcomplete#Complete
+
 " Visual
 set showmatch  " Show matching brackets.
 set mat=5  " Bracket blinking.
@@ -118,3 +120,19 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+function! SuperCleverTab()
+  if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
+    return "\<Tab>"
+  else
+    if &omnifunc != ''
+      return "\<C-X>\<C-O>"
+    elseif &dictionary != ''
+      return "\<C-K>"
+    else
+      return "\<C-N>"
+    endif
+  endif
+endfunction
+
+inoremap <Tab> <C-R>=SuperCleverTab()<cr>
