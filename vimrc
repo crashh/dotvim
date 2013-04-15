@@ -1,3 +1,6 @@
+" Leader
+let mapleader = ","
+
 """ Vundle config start
 set nocompatible               " be iMproved
 filetype off                   " required!
@@ -32,6 +35,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'wikitopian/hardmode'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'thoughtbot/vim-rspec'
 
 "" vim-snipmate  dependencies
 Bundle "MarcWeber/vim-addon-mw-utils"
@@ -85,8 +89,18 @@ colorscheme railscasts
 
 "" Line numbering, cursor
 set number                        " Show line numbers
+set numberwidth=5
 set ruler                         " Show cursor position.
 set scrolloff=3                   " Show 3 lines of context around the cursor.
+
+" Use Ag (https://github.com/ggreer/the_silver_searcher) instead of Ack when
+" available
+if executable("ag")
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
+
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
 
 "" Yankring
 let g:yankring_history_file = '.yankring_history'
@@ -110,7 +124,7 @@ set wildmode=list:longest         " Complete files like a shell.
 set wildignore+=vendor,log,tmp,*.swp,.git,gems,.bundle,Gemfile.lock,.gem,.rvmrc,.gitignore,.DS_Store,data
 
 "" Misc shortcuts
-nnoremap <leader><space> :nohl<cr>      " un-highlight search results
+nnoremap <leader>\ :nohl<cr>      " un-highlight search results
 map <F5> :call system('pbcopy', @%)<cr> " Copy file path to clipboard
 map <leader>p :CtrlP<cr>
 map <leader>b :CtrlPBuffer<cr>
@@ -121,18 +135,31 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-function! SuperCleverTab()
-  if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
-    return "\<Tab>"
-  else
-    if &omnifunc != ''
-      return "\<C-X>\<C-O>"
-    elseif &dictionary != ''
-      return "\<C-K>"
-    else
-      return "\<C-N>"
-    endif
-  endif
-endfunction
+" Snippets are activated by Shift+Tab
+let g:snippetsEmu_key = "<S-Tab>"
 
-inoremap <Tab> <C-R>=SuperCleverTab()<cr>
+" Tab completion
+" will insert tab at beginning of line,
+" will use completion if not at beginning
+set wildmode=list:longest,list:full
+set complete=.,w,t
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
+
+map <C-s> <esc>:w<CR>
+imap <C-s> <esc>:w<CR>
+map <C-n> :cn<CR>
+map <C-p> :cp<CR>
+
+" Set the tag file search order
+set tags=./tags;
