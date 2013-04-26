@@ -35,6 +35,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'thoughtbot/vim-rspec'
+Bundle 'croaky/vim-colors-github'
 
 "" vim-snipmate  dependencies
 Bundle "MarcWeber/vim-addon-mw-utils"
@@ -53,9 +54,19 @@ endif
 filetype plugin indent on     " required!
 """ Vundle config end
 
+map <Leader>cn :e ~/Dropbox/notes/coding-notes.txt<cr>
+map <Leader>pn :sp ~/Dropbox/work/infakt/notes/project-notes.txt<cr>
+
+
 "" General settings
+syntax on
+
+" Color scheme
+colorscheme github
+highlight NonText guibg=#060606
+highlight Folded  guibg=#0A0A0A guifg=#9090D0
+
 set nocompatible                " choose no compatibility with legacy vi
-syntax enable
 set encoding=utf-8
 set showcmd                     " display incomplete commands
 filetype plugin indent on       " load file type plugins + indentation
@@ -83,8 +94,6 @@ set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
 
-"" Color scheme
-colorscheme railscasts
 
 "" Line numbering, cursor
 set number                        " Show line numbers
