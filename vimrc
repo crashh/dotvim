@@ -2,7 +2,6 @@
 let mapleader = ","
 
 """ Vundle config start
-set nocompatible               " be iMproved
 filetype off                   " required!
 
 " Setting up Vundle - the vim plugin bundler
@@ -51,12 +50,12 @@ if iCanHazVundle == 0
 endif
 " Setting up Vundle - the vim plugin bundler end
 
-filetype plugin indent on     " required!
 """ Vundle config end
 
 map <Leader>cn :e ~/Dropbox/notes/coding-notes.txt<cr>
 map <Leader>pn :sp ~/Dropbox/work/infakt/notes/project-notes.txt<cr>
-
+map <Leader>o :call RunCurrentLineInTest()<CR>
+map <Leader>t :w<cr>:call RunCurrentTest()<CR>
 
 "" General settings
 syntax on
@@ -66,7 +65,6 @@ colorscheme github
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
-set nocompatible                " choose no compatibility with legacy vi
 set encoding=utf-8
 set showcmd                     " display incomplete commands
 filetype plugin indent on       " load file type plugins + indentation
@@ -108,11 +106,11 @@ if executable("ag")
 endif
 
 " Switch between the last two files
-nnoremap <leader><leader> <c-^>
+nnoremap <Leader><Leader> <c-^>
 
 "" Yankring
 let g:yankring_history_file = '.yankring_history'
-map <leader>y :YRShow<cr>
+map <Leader>y :YRShow<cr>
 
 "" NERDTree
 function! ShowFileInNERDTree()
@@ -124,7 +122,7 @@ function! ShowFileInNERDTree()
     NERDTreeFind
   endif
 endfunction
-map <leader>d :call ShowFileInNERDTree()<cr>
+map <Leader>d :call ShowFileInNERDTree()<cr>
 
 "" Wild stuff
 set wildmenu                      " Enhanced command line completion.
@@ -132,10 +130,10 @@ set wildmode=list:longest         " Complete files like a shell.
 set wildignore+=vendor,log,tmp,*.swp,.git,gems,.bundle,Gemfile.lock,.gem,.rvmrc,.gitignore,.DS_Store,data
 
 "" Misc shortcuts
-nnoremap <leader>\ :nohl<cr>      " un-highlight search results
+nnoremap <Leader>\ :nohl<cr>      " un-highlight search results
 map <F5> :call system('pbcopy', @%)<cr> " Copy file path to clipboard
-map <leader>p :CtrlP<cr>
-map <leader>b :CtrlPBuffer<cr>
+map <Leader>p :CtrlP<cr>
+map <Leader>b :CtrlPBuffer<cr>
 
 "" ctrl + hjkl
 map <C-j> <C-W>j
@@ -144,7 +142,9 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Get rid of the delay when hitting esc!
- set noesckeys
+set noesckeys
+
+set nocompatible
 
 " Make the omnicomplete text readable
 :highlight PmenuSel ctermfg=black
@@ -158,12 +158,12 @@ let g:snippetsEmu_key = "<S-Tab>"
 set wildmode=list:longest,list:full
 set complete=.,w,t
 function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
 endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 
@@ -181,3 +181,61 @@ map <C-p> :cp<CR>
 
 " Set the tag file search order
 set tags=./tags;
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Test-running stuff
+" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RunCurrentTest()
+  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
+  if in_test_file
+    call SetTestFile()
+
+    if match(expand('%'), '\.feature$') != -1
+      call SetTestRunner("!cucumber")
+      exec g:bjo_test_runner g:bjo_test_file
+    elseif match(expand('%'), '_spec\.rb$') != -1
+      call SetTestRunner("!bin/rspec")
+      exec g:bjo_test_runner g:bjo_test_file
+    else
+      call SetTestRunner("!ruby -Itest")
+      exec g:bjo_test_runner g:bjo_test_file
+    endif
+  else
+    exec g:bjo_test_runner g:bjo_test_file
+  endif
+endfunction
+
+function! SetTestRunner(runner)
+  let g:bjo_test_runner=a:runner
+endfunction
+
+function! RunCurrentLineInTest()
+  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
+  if in_test_file
+    call SetTestFileWithLine()
+  end
+
+  exec "!bin/rspec" g:bjo_test_file . ":" . g:bjo_test_file_line
+endfunction
+
+function! SetTestFile()
+  let g:bjo_test_file=@%
+endfunction
+
+function! SetTestFileWithLine()
+  let g:bjo_test_file=@%
+  let g:bjo_test_file_line=line(".")
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <Leader>n :call RenameFile()<cr>
