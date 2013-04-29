@@ -143,6 +143,12 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Get rid of the delay when hitting esc!
+ set noesckeys
+
+" Make the omnicomplete text readable
+:highlight PmenuSel ctermfg=black
+
 " Snippets are activated by Shift+Tab
 let g:snippetsEmu_key = "<S-Tab>"
 
@@ -162,10 +168,6 @@ endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 
 "" Disable arrow keys
-inoremap  <Up>     <NOP>
-inoremap  <Down>   <NOP>
-inoremap  <Left>   <NOP>
-inoremap  <Right>  <NOP>
 noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
